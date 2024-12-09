@@ -21,11 +21,11 @@ body,
   }
 
   .grad{
-    @apply bg-gradient-to-r from-[#01B1F0] to-[#019B43] inline-block text-transparent bg-clip-text;
+    @apply bg-gradient-to-r from-[#0059FF] to-[#00DDFF] inline-block text-transparent bg-clip-text;
   }
 
   .grad_svg{
-    @apply bg-gradient-to-r from-[#01B1F0] to-[#019B43];
+    @apply bg-gradient-to-r from-[#0059FF] to-[#00DDFF];
     @apply dark:bg-gradient-to-r from-[#640F00] to-[#BC0003];
   }
 }

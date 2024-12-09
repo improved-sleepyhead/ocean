@@ -4,9 +4,11 @@ import { useScrollTop } from "@/hooks/use-scroll-top"
 import { ModeToggle } from "@/components/mode-toggle";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
+import { useConvexAuth } from "convex/react";
 
 
 export const Navbar = () =>{
+    const {} = useConvexAuth();
     const scrolled = useScrollTop();
     return(
         <div className={cn(

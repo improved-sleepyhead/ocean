@@ -10,8 +10,8 @@ export const Line = () => {
         <defs>
           {/* Градиент для светлой темы */}
           <linearGradient id="gradient-light" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#01B1F0" />
-            <stop offset="100%" stopColor="#019B43" />
+            <stop offset="0%" stopColor="#0059FF" />
+            <stop offset="100%" stopColor="#00DDFF" />
           </linearGradient>
           {/* Градиент для тёмной темы */}
           <linearGradient id="gradient-dark" x1="0%" y1="0%" x2="100%" y2="0%">
