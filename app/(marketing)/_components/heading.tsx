@@ -1,10 +1,16 @@
 "use client";
 
-
+import { Spinner } from "@/components/spinner";
 import { Button } from "@/components/ui/button";
+import { SignInButton } from "@clerk/clerk-react";
+import { useConvexAuth } from "convex/react";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export const Heading = () => {
+    const { isAuthenticated, isLoading } = useConvexAuth(); 
+
+
     return (
         <div className="max-w-8xl space-y-4">
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold font-montserrat text-[#0059FF]">
@@ -15,10 +21,31 @@ export const Heading = () => {
                 Ведите личные записи, планируйте проекты<br />
                 и совместно работайте с командой - всё в одном месте
             </h3>
-            <Button className="bg-[#0044C2] px-8 hover:bg-[#19489d] dark:bg-white dark:hover:bg-[#cccccc]">
-            <h3 className="text-base font-medium font-montserrat">Начните бесплатно</h3>
-            <ArrowRight className="h-6 w-6 ml-4"/>
+            {isLoading && (
+                <div className="w-full flex items-center justify-center">
+                    <Spinner size="lg" />
+                </div>
+            )}
+            {isAuthenticated && !isLoading && (
+            <Button asChild
+            className="bg-[#0044C2] px-8 hover:bg-[#19489d]
+            dark:bg-white dark:hover:bg-[#cccccc]">
+                <Link href="/documents">
+                <h3 className="text-base font-medium font-montserrat">Перейти в Ocean</h3>
+                <ArrowRight className="h-6 w-6 ml-4"/>
+                </Link>
             </Button>
+            )}
+            {!isAuthenticated && !isLoading &&(
+                <SignInButton>
+                    <Button
+                    className="bg-[#0044C2] px-8 hover:bg-[#19489d]
+                    dark:bg-white dark:hover:bg-[#cccccc]">
+                        <h3 className="text-base font-medium font-montserrat">Начните бесплатно</h3>
+                        <ArrowRight className="h-6 w-6 ml-4"/>
+                    </Button>
+                </SignInButton>
+            )} 
         </div>
     )
 }
