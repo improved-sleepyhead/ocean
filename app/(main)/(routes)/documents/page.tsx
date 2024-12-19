@@ -16,7 +16,7 @@ const DocumentsPage = () => {
         const promise = create({ title: "Untitled"});
 
         toast.promise(promise,{
-            loading: "Создаём говую заметку...",
+            loading: "Создаём новую заметку...",
             success: "Новая заметка создана!",
             error: "Не удалось создать новую заметку."
         });
