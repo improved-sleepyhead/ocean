@@ -307,3 +307,33 @@ export const update = mutation ({
         return document;
     },
 });
+
+export const removeIcon = mutation({
+    args: {id: v.id("documents")},
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+
+        if (!identity){
+            throw new Error("Не авторизирован");
+        }
+
+        const userId = identity.subject;
+
+        const existingDocument = await ctx.db.get(args.id);
+
+        if (!existingDocument) {
+            throw new Error("Не найдено");
+        }
+
+        if (existingDocument.userId !== userId) {
+            throw new Error("Несанкционированный доступ")
+        }
+
+        const document = await ctx.db.patch(args.id, {
+            icon: undefined
+        });
+
+        return document;
+
+    },
+});
