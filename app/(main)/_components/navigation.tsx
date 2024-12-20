@@ -18,9 +18,12 @@ import {
 
 import { DocumentList } from "./document-list";
 import { Item } from "./item";
+import { TrashBox } from "./trash-box";
+import { useSearch } from "@/hooks/use-search";
 
 
 export const Navigation = () => {
+    const search= useSearch();
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
     const create = useMutation(api.documents.create);
@@ -141,7 +144,7 @@ export const Navigation = () => {
                         label="Поиск"
                         icon={Search}
                         isSearch
-                        onClick={() => {}}
+                        onClick={search.onOpen}
                     />
                     <Item
                         label="Настройки"
@@ -169,7 +172,7 @@ export const Navigation = () => {
                             className="p-0 w-72"
                             side={isMobile ? "bottom" : "right"}
                         >
-                            <p>Корзина</p>
+                            <TrashBox />
                         </PopoverContent>
                     </Popover>
                 </div>
