@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, MenuIcon, Plus, PlusCircle, Search, Settings, Trash } from "lucide-react";
+import { ChevronLeft, MenuIcon, Plus, PlusCircle, Search, Settings, Trash, Computer } from "lucide-react";
 import { useParams, usePathname } from "next/navigation";
 import { ComponentRef, useEffect, useRef, useState } from "react";
 import {useMediaQuery} from "usehooks-ts";
@@ -22,12 +22,14 @@ import { TrashBox } from "./trash-box";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
 import { Navbar } from "./navbar";
+import { AiModal } from "./ai-madal";
 
 
 
 export const Navigation = () => {
     const params = useParams();
     const settings = useSettings();
+    
     const search= useSearch();
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
@@ -156,12 +158,11 @@ export const Navigation = () => {
                         icon={Settings}
                         onClick={settings.onOpen}
                     />
-                    <Item 
-                    onClick={handleCreate} 
-                    label="Новая страница" 
-                    icon={PlusCircle}
+                    <AiModal
+            
                     />
                 </div>
+                
                 <div className="mt-4">
                     <DocumentList/>
                     <Item
