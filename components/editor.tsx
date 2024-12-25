@@ -2,40 +2,66 @@
 
 import {
     BlockNoteEditor,
-    PartialBlock,
+    PartialBlock
 } from "@blocknote/core";
 
-import {
-    BlockNoteViewRaw,
-    useCreateBlockNote,
-    useBlockNoteEditor,
-} from "@blocknote/react";
+import { useCreateBlockNote } from "@blocknote/react";
 
-import "@blocknote/core/style.css";
+import { BlockNoteView } from "@blocknote/mantine";
+
+import "@blocknote/mantine/style.css";
+import "@blocknote/core/fonts/inter.css";
+import { useEffect } from "react";
+import { useTheme } from "next-themes";
 
 interface EditorProps {
     onChange: (value: string) => void;
     initialContent?: string;
-    editable?: boolean;
 };
 
 export const Editor = ({
     onChange,
     initialContent,
-    editable
 }: EditorProps) => {
-    // const editor: BlockNoteEditor = useCreateBlockNote({
-    //     editable,
-    //     initialContent: initialContent ? JSON.parse(initialContent) as PartialBlock[] : undefined,
-    //     onEditorContentChange: (editor: BlockNoteEditor) => {
-    //         onChange(JSON.stringify(editor.document, null, 2));
-    //     }
-    // })
+    const { resolvedTheme } = useTheme();
+
+    // Создаём редактор с начальным контентом
+    const editor = useCreateBlockNote({
+        initialContent: 
+            initialContent
+                ? (JSON.parse(initialContent) as PartialBlock[])
+                : undefined,
+    });
+
+    // Следим за состоянием документа через эффект
+    useEffect(() => {
+        if (!editor) return;
+
+        // Обновляем контент при изменении документа
+        const content = JSON.stringify(editor.document, null, 2);
+        onChange(content);
+
+        // Периодическое обновление, если требуется для других процессов
+        const interval = setInterval(() => {
+            const updatedContent = JSON.stringify(editor.document, null, 2);
+            if (updatedContent !== content) {
+                onChange(updatedContent);
+            }
+        }, 500);
+
+        return () => clearInterval(interval);
+    }, [editor, onChange]);
+
+    if (!editor) {
+        return <div>Загрузка редактора...</div>;
+    }
 
     return (
         <div>
-            Editor
+            <BlockNoteView
+                editor={editor}
+                theme={resolvedTheme === "dark" ? "dark" : "light"}
+            />
         </div>
-    )
-}
-
+    );
+};

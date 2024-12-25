@@ -40,13 +40,17 @@ export const Navbar = () =>{
                 )}
                 {isAuthenticated && !isLoading && (
                     <>
+                        <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
                         <Button className="text-[#0059FF] hover:text-[#0059FF] dark:text-[#ffffff] dark:hover:text-[#cccccc]" 
                         variant="ghost" size="sm"  asChild>
                             <Link href="/documents">
                             Перейти в Ocean
                             </Link>
                         </Button>
-                        <UserButton />
+                        </div>
+                        <div className="ml-auto ">
+                        <UserButton/>
+                        </div>
                     </>
                 )}
                 <ModeToggle />

@@ -22,7 +22,7 @@ import { TrashBox } from "./trash-box";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
 import { Navbar } from "./navbar";
-import { AiModal } from "./ai-madal";
+
 
 
 
@@ -157,9 +157,6 @@ export const Navigation = () => {
                         label="Настройки"
                         icon={Settings}
                         onClick={settings.onOpen}
-                    />
-                    <AiModal
-            
                     />
                 </div>
                 
