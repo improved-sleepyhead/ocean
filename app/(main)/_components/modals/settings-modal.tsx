@@ -3,7 +3,8 @@
 import {
     Dialog,
     DialogContent,
-    DialogHeader
+    DialogHeader,
+    DialogTitle
 } from "@/components/ui/dialog"
 
 import { useSearch } from "@/hooks/use-search"

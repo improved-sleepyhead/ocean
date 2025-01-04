@@ -53,7 +53,7 @@ const DocumentsPage = () => {
             </h1>
             <Button
                 onClick={onCreate}
-                className="bg-[#234e79]"
+                className="bg-[#234e79] dark:bg-neutral-200 hover:bg-[#183654] dark:hover:bg-primary/70"
             >
                 <PlusCircle className="h-4 w-4 mr-2"/>
                 Создать заметку

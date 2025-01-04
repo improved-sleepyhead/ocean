@@ -43,7 +43,7 @@ export const IconPicker = ({
                     height={350}
                     theme={theme}
                     onEmojiClick={(data) => onChange(data.emoji)}
-                    emojiStyle={EmojiStyle.NATIVE}
+                    emojiStyle={EmojiStyle.GOOGLE}
                 />
             </PopoverContent>
         </Popover>
