@@ -2,7 +2,7 @@
 
 import {
     BlockNoteEditor,
-    PartialBlock
+    PartialBlock,
 } from "@blocknote/core";
 
 import { useCreateBlockNote } from "@blocknote/react";
@@ -14,16 +14,29 @@ import "@blocknote/core/fonts/inter.css";
 import { useEffect } from "react";
 import { useTheme } from "next-themes";
 
+import { useEdgeStore } from "@/lib/edgestore";
+
 interface EditorProps {
     onChange: (value: string) => void;
     initialContent?: string;
+    readOnly?: boolean;
 };
 
-export const Editor = ({
+const Editor = ({
     onChange,
     initialContent,
+    readOnly
 }: EditorProps) => {
     const { resolvedTheme } = useTheme();
+    const { edgestore } = useEdgeStore();
+
+    const handleUpload = async (file: File) => {
+        const response = await edgestore.publicFiles.upload({
+            file
+        });
+
+        return response.url;
+    }
 
     // Создаём редактор с начальным контентом
     const editor = useCreateBlockNote({
@@ -31,17 +44,16 @@ export const Editor = ({
             initialContent
                 ? (JSON.parse(initialContent) as PartialBlock[])
                 : undefined,
+        uploadFile: handleUpload,
     });
 
     // Следим за состоянием документа через эффект
     useEffect(() => {
-        if (!editor) return;
+        if (!editor || readOnly) return; // Отключаем слежение в режиме только для чтения
 
-        // Обновляем контент при изменении документа
         const content = JSON.stringify(editor.document, null, 2);
         onChange(content);
 
-        // Периодическое обновление, если требуется для других процессов
         const interval = setInterval(() => {
             const updatedContent = JSON.stringify(editor.document, null, 2);
             if (updatedContent !== content) {
@@ -50,18 +62,24 @@ export const Editor = ({
         }, 500);
 
         return () => clearInterval(interval);
-    }, [editor, onChange]);
+    }, [editor, onChange, readOnly]);
+
 
     if (!editor) {
         return <div>Загрузка редактора...</div>;
     }
 
     return (
-        <div>
+        <div
+            style={readOnly ? { userSelect: 'text'} : {}}
+        >
             <BlockNoteView
                 editor={editor}
                 theme={resolvedTheme === "dark" ? "dark" : "light"}
+                editable={!readOnly}
             />
         </div>
     );
 };
+
+export default Editor;

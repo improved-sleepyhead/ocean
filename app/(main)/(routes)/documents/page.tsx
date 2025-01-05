@@ -15,21 +15,14 @@ const DocumentsPage = () => {
     const router = useRouter();
 
     const onCreate = async () => {
-        const promise = create({ title: "Untitled" });
+        const promise = create({ title: "Untitled" })
+            .then((documentId) => router.push(`/documents/${documentId}`))
 
         toast.promise(promise, {
             loading: "Создаём новую заметку...",
             success: "Новая заметка создана!",
             error: "Не удалось создать новую заметку."
         });
-
-        try {
-            const newDocumentId = await promise; // Получаем ID новой заметки
-            // После успешного создания заметки, редиректим на её страницу
-            router.push(`/documents/${newDocumentId}`);
-        } catch (error) {
-            console.error("Ошибка создания заметки:", error);
-        }
     };
 
     return ( 
