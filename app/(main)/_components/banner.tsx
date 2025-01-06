@@ -61,7 +61,7 @@ export const Banner = ({
                     variant="outline"
                     className="border-white bg-transparent hover:bg-[#aa343484] text-white hover:text-white p-1 px-2 h-auto font-normal"
                 >
-                    Удалить страницу навсегда
+                    Удалить навсегда
                 </Button>
             </ConfirmModal>
         </div>

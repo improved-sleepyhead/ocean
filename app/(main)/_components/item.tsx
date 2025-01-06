@@ -149,16 +149,16 @@ export const Item = ({
                         >
                             <div
                              role="button"
-                             className="opacity-0 group-hover:opacity-100 h-full
+                             className="opacity-100 lg:opacity-0 group-hover:opacity-100 h-full
                              ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
                             >
                                 <MoreHorizontal className="h--4 w-4 text-muted-foreground"/>
                             </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent
-                            className="w-60"
+                            className="w-60 transform translate-x-[-65%]"
                             align="start"
-                            side="right"
+                            side="bottom"
                             forceMount
                         >
                             <DropdownMenuItem onClick={onArchive}>
@@ -166,7 +166,7 @@ export const Item = ({
                                 Удалить
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <div className="text-xs text-muted-foreground p-2">
+                            <div className="flex text-xs text-muted-foreground p-2">
                                 Последний раз редактировано пользователем {user?.fullName}
                             </div>
                         </DropdownMenuContent>
@@ -174,7 +174,7 @@ export const Item = ({
                     <div
                         role="button"
                         onClick={onCreate}
-                        className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+                        className="opacity-100 lg:opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
                     >
                         <Plus className="h-4 w-4 text-muted-foreground"/>
                     </div>

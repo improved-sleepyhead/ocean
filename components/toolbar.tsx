@@ -3,13 +3,15 @@
 import { Doc } from "@/convex/_generated/dataModel";
 import { IconPicker } from "./icon-picker";
 import { Button } from "@/components/ui/button";
-import { ImageIcon, Smile, X } from "lucide-react";
-import { ComponentRef, useRef, useState } from "react";
+import { FilePlus2, ImageIcon, Smile, X } from "lucide-react";
+import { ComponentRef, useEffect, useRef, useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
 import TextAreaAutosize from "react-textarea-autosize";
 import { useCoverImage } from "@/hooks/use-cover-image";
+
+
 
 interface ToolbarProps {
     initialData: Doc<"documents">;
@@ -71,6 +73,35 @@ export const ToolBar = ({
         })
     }
 
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement | null>(null);
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+    const onMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const closeMenu = () => {
+        setIsMenuOpen(false); 
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                menuRef.current && 
+                !menuRef.current.contains(event.target as Node) && 
+                !buttonRef.current?.contains(event.target as Node)
+            ) {
+                closeMenu();
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     return (
         <div className="pl-[54px] group relative">
             {!!initialData.icon && !preview && (
@@ -95,48 +126,103 @@ export const ToolBar = ({
                     {initialData.icon}
                 </p>
             )}
-            <div className="opacity-0 group-hover:opacity-100 flex items-center gap-x-1 py-4">
-                {!initialData.icon && !preview && (
-                    <IconPicker asChild onChange={onIconSelect}>
+
+            
+
+            <div className="hidden lg:block">
+                <div className="opacity-0 group-hover:opacity-100 flex items-center gap-x-1 py-4">
+                    {!initialData.icon && !preview && (
+                        <IconPicker asChild onChange={onIconSelect}>
+                            <Button
+                                className="text-muted-foreground text-xs"
+                                variant="outline"
+                                size="sm"
+                            >
+                                <Smile className="h-4 w-4 mr-2"/>
+                                Добавить иконку
+                            </Button>
+                        </IconPicker>
+                    )}
+                    {!initialData.coverImage && !preview && (
                         <Button
+                        onClick={coverImage.onOpen}
                             className="text-muted-foreground text-xs"
                             variant="outline"
                             size="sm"
                         >
-                            <Smile className="h-4 w-4 mr-2"/>
-                            Добавить иконку
+                            <ImageIcon className="h-4 w-4 mr-2"/>
+                            Добавить обложку
                         </Button>
-                    </IconPicker>
-                )}
-                {!initialData.coverImage && !preview && (
-                    <Button
-                    onClick={coverImage.onOpen}
-                        className="text-muted-foreground text-xs"
-                        variant="outline"
-                        size="sm"
-                    >
-                        <ImageIcon className="h-4 w-4 mr-2"/>
-                        Добавить изображение-обложку
-                    </Button>
-                )}
-            </div>
-            {isEditing && !preview ? (
-                <TextAreaAutosize 
-                    ref={inputRef}
-                    onBlur={disableInput}
-                    onKeyDown={onKeyDown}
-                    value={value}
-                    onChange={(e) => onInput(e.target.value)}
-                    className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
-                />
-            ) : (
-                <div
-                    onClick={enableInput}
-                    className="pb-[11.5px] text-5xl font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF]"
-                >
-                    {initialData.title}
+                    )}
                 </div>
+            </div>
+
+                {isEditing && !preview ? (
+                    <TextAreaAutosize 
+                        ref={inputRef}
+                        onBlur={disableInput}
+                        onKeyDown={onKeyDown}
+                        value={value}
+                        onChange={(e) => onInput(e.target.value)}
+                        className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
+                    />
+                ) : (
+                    <div className="flex py-4">
+                        <div
+                            onClick={enableInput}
+                            className="pb-[11.5px] text-5xl font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF]"
+                        >
+                            {initialData.title}
+                            
+                        </div>
+                        <div className="lg:hidden ml-[7px] mt-[5px]">
+                        <Button
+                            ref={buttonRef}
+                            onClick={onMenu}
+                            className="text-muted-foreground text-xs hover:bg-transparent"
+                            variant="ghost"
+                            size="sm"
+                        >
+                            <FilePlus2 className="h-6 w-6"/>
+                        </Button>
+
+                        {isMenuOpen && (
+                            <div
+                            className="opacity-0 group-hover:opacity-100 flex items-center gap-x-1 py-4" ref={menuRef}
+                            style={{
+                                transform: 'translateX(-180px)', // Небольшое дополнительное смещение вниз
+                            }}
+                            >
+                                {!initialData.icon && !preview && (
+                                    <IconPicker asChild onChange={onIconSelect}>
+                                        <Button
+                                            className="text-muted-foreground text-xs"
+                                            variant="outline"
+                                            size="sm"
+                                        >
+                                            <Smile className="h-4 w-4 mr-2"/>
+                                            Добавить иконку
+                                        </Button>
+                                    </IconPicker>
+                                )}
+                                {!initialData.coverImage && !preview && (
+                                    <Button
+                                        onClick={coverImage.onOpen}
+                                        className="text-muted-foreground text-xs"
+                                        variant="outline"
+                                        size="sm"
+                                    >
+                                        <ImageIcon className="h-4 w-4 mr-2"/>
+                                        Добавить обложку
+                                    </Button>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>   
             )}
         </div>
+            
+            
     )
 }

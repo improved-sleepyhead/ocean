@@ -26,7 +26,8 @@ const DocumentsPage = () => {
     };
 
     return ( 
-        <div className="h-full flex flex-col items-center justify-center space-y-5">
+        <div className="h-full flex flex-col items-center lg:mt-[150px] mt-[100px] space-y-5">
+            
             <Image
                 src="/default.svg"
                 height="300"
@@ -51,7 +52,8 @@ const DocumentsPage = () => {
                 <PlusCircle className="h-4 w-4 mr-2"/>
                 Создать заметку
             </Button>
-        </div>
+            </div>
+        
     );
 };
 

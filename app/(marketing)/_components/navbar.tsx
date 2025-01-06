@@ -31,11 +31,13 @@ export const Navbar = () =>{
                             Войти
                         </Button>
                     </SignInButton>
-                    <SignInButton mode="modal">
-                        <Button size="sm" className="bg-[#0044C2] px-8 hover:bg-[#19489d] dark:bg-white dark:hover:bg-[#cccccc]">
-                            Знакомство с Ocean
-                        </Button>
-                    </SignInButton>
+                    <div className="hidden sm:block md:block">
+                        <SignInButton mode="modal">
+                            <Button size="sm" className="bg-[#0044C2] px-8 hover:bg-[#19489d] dark:bg-white dark:hover:bg-[#cccccc]">
+                                Знакомство с Ocean
+                            </Button>
+                        </SignInButton>
+                    </div>
                 </>
                 )}
                 {isAuthenticated && !isLoading && (
