@@ -31,7 +31,7 @@ export const Line = () => {
       {/* SVG для мобильной версии с полной заливкой */}
       <svg
         className="block md:hidden absolute bottom-0 w-full"
-        viewBox="0 0 1440 820"
+        viewBox="0 0 1440 720"
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -57,7 +57,7 @@ export const Line = () => {
           x="0"
           y="310"
           width="1440"
-          height="510"
+          height="410"
           fill="url(#gradient-light-mobile)"
           className="dark:fill-[url(#gradient-dark-mobile)]"
         />

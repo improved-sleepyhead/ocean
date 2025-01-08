@@ -36,7 +36,7 @@ const DocumentsPage = () => {
                 className="dark:hidden"
             />
             <Image
-                src="/default_dark.svg"
+                src="/default_dark.png"
                 height="300"
                 width="300"
                 alt="Empty"

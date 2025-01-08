@@ -156,7 +156,7 @@ export const Item = ({
                             </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent
-                            className="w-60 transform translate-x-[-65%]"
+                            className="w-60 transform translate-x-[-15%]"
                             align="start"
                             side="bottom"
                             forceMount

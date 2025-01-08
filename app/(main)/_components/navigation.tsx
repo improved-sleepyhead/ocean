@@ -117,8 +117,8 @@ export const Navigation = () => {
     }
 
     const handleCreate = () =>{
-        const promise = create({ title: "Untitled"});
-            // .then((documentId) => router.push(`/documents/${documentId}`))
+        const promise = create({ title: "Untitled"})
+            .then((documentId) => router.push(`/documents/${documentId}`));
 
         toast.promise(promise, {
             loading: "Создаём новую заметку...",
@@ -134,7 +134,7 @@ export const Navigation = () => {
             className={cn(
                 "group/sidebar h-full bg-secondary overflow-y-auto relative flex w-60 flex-col z-[99999]",
                 isResetting && "transition-all ease-in-out duration-300",
-                isMobile && "w-0"
+                isMobile && "w-0" 
             )}
             >
                 <div
@@ -194,25 +194,39 @@ export const Navigation = () => {
                     bg-primary/10 right-0 top-0"
                 />
             </aside>
+            
             <div
-                // вся часть справа навбара будет следовать за ним
                 ref={navbarRef}
                 className={cn(
-                    "absolute top-0 z-[99999] left-60 w-[calc(100%-240px)]", 
+                    "absolute top-0 z-[99999] left-60 w-[calc(100%-240px)] dark:bg-[#1F1F1F]",
                     isResetting && "transition-all ease-in-out duration-300",
                     isMobile && "left-0 w-full"
                 )}
             >
-                {!!params.documentId ? (
-                    <Navbar 
-                        isCollapsed={isCollapsed}
-                        onResetWidth={resetWidth}
-                    />
+                {isMobile ? (
+                    // На мобильных устройствах показываем navbar, если сайдбар открыт
+                    isCollapsed && !!params.documentId ? (
+                        <Navbar
+                            isCollapsed={isCollapsed}
+                            onResetWidth={resetWidth}
+                        />
+                    ) : (
+                        <nav className="px-3 py-2 w-full">
+                            {isCollapsed && <MenuIcon onClick={resetWidth} role="button" className="h-6 w-6 text-muted-foreground" />}
+                        </nav>
+                    )
                 ) : (
-                    <nav className=" px-3 py-2 w-full">
-                        {isCollapsed && <MenuIcon onClick={resetWidth} role="button" className="h-6 w-6 text-muted-foreground"/>}
-                        
-                    </nav>
+                    // Для десктопа всегда показываем navbar
+                    !!params.documentId ? (
+                        <Navbar
+                            isCollapsed={isCollapsed}
+                            onResetWidth={resetWidth}
+                        />
+                    ) : (
+                        <nav className="px-3 py-2 w-full">
+                            {isCollapsed && <MenuIcon onClick={resetWidth} role="button" className="h-6 w-6 text-muted-foreground" />}
+                        </nav>
+                    )
                 )}
             </div>
         </>

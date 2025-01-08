@@ -7,6 +7,9 @@ body,
 :root{
   height: 100%
 }
+
+
+
 @font-face{
   font-family:'Montserrat';
   src: url('/ocean_project/public/assets/Montserrat-VariableFont_wght.ttf') format('truetype');

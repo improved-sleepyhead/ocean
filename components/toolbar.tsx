@@ -65,6 +65,12 @@ export const ToolBar = ({
             id: initialData._id,
             icon,
         });
+        setIsMenuOpen(false);
+    };
+
+    const onCoverImageOpen = () => {
+        coverImage.onOpen();
+        setIsMenuOpen(false); // Закрыть меню после открытия обложки
     };
 
     const onRemoveIcon = () => {
@@ -74,33 +80,12 @@ export const ToolBar = ({
     }
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const menuRef = useRef<HTMLDivElement | null>(null);
     const buttonRef = useRef<HTMLButtonElement | null>(null);
+    const menuRef = useRef<HTMLDivElement | null>(null);
 
     const onMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
-
-    const closeMenu = () => {
-        setIsMenuOpen(false); 
-    };
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (
-                menuRef.current && 
-                !menuRef.current.contains(event.target as Node) && 
-                !buttonRef.current?.contains(event.target as Node)
-            ) {
-                closeMenu();
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
 
     return (
         <div className="pl-[54px] group relative">
@@ -188,7 +173,8 @@ export const ToolBar = ({
 
                         {isMenuOpen && (
                             <div
-                            className="opacity-0 group-hover:opacity-100 flex items-center gap-x-1 py-4" ref={menuRef}
+                            className="opacity-0 group-hover:opacity-100 flex items-center gap-x-1 py-4"
+
                             style={{
                                 transform: 'translateX(-180px)',
                             }}
@@ -207,7 +193,7 @@ export const ToolBar = ({
                                 )}
                                 {!initialData.coverImage && !preview && (
                                     <Button
-                                        onClick={coverImage.onOpen}
+                                        onClick={onCoverImageOpen}
                                         className="text-muted-foreground text-xs"
                                         variant="outline"
                                         size="sm"
