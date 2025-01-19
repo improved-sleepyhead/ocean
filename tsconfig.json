@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "app/(main)/_components/xl-pdf-exporter/testDocument.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -10,6 +10,8 @@ import { Banner } from "./banner";
 import { Menu } from "./menu";
 import { useMediaQuery } from "usehooks-ts";
 import { Publish } from "./publish";
+import ExportButton from "./export";
+
 
 interface NavbarProps {
     isCollapsed: boolean;
@@ -54,7 +56,8 @@ export const Navbar = ({
                 )}
                 <div className="flex items-center justify-between w-full">
                     <Title initialData={document} />
-                    <div className="items-center flex gap-x-2">
+                    <div className="items-center justify-end flex gap-x-2">
+                        {/* <ExportButton initialData={document} /> */}
                         <Publish initialData={document} />
                         <Menu documentId={document._id} />
                     </div>

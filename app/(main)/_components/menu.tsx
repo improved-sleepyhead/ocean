@@ -3,8 +3,8 @@
 import { Id } from "@/convex/_generated/dataModel";
 
 import { useUser } from "@clerk/clerk-react";
-import { useRouter } from "next/navigation";
-import { useMutation } from "convex/react";
+import { useParams, useRouter } from "next/navigation";
+import { useMutation, useQuery } from "convex/react";
 import { MoreHorizontal, Trash } from "lucide-react";
 import { toast } from "sonner";
 
@@ -19,6 +19,7 @@ import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRef } from "react";
+import ExportButton from "./export";
 
 interface MenuProps {
     documentId: Id<"documents">;
@@ -27,6 +28,10 @@ interface MenuProps {
 export const Menu = ({
     documentId
 }: MenuProps) => {
+    const params = useParams();
+    const document = useQuery(api.documents.getById, {
+            documentId: params.documentId as Id<"documents">,
+        });
     const router = useRouter();
     const { user } = useUser();
     const triggerRef = useRef<HTMLButtonElement>(null);
@@ -66,10 +71,15 @@ export const Menu = ({
                 alignOffset={8}
                 forceMount
             >
+                <div className="mr-4">
+                    <ExportButton initialData={document}/>
+                </div>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={onArchive}>
-                    <Trash className="h-4 w-4 mr-2"/>
+                    <Trash className="h-5 w-5 pl-1 mr-2"/>
                     Удалить
                 </DropdownMenuItem>
+                
                 <DropdownMenuSeparator />
                 <div className="text-xs text-muted-foreground p-2">
                     Изменено последний раз пользователем {user?.fullName}
