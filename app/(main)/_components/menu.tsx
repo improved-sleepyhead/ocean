@@ -71,9 +71,15 @@ export const Menu = ({
                 alignOffset={8}
                 forceMount
             >
-                <div className="mr-4">
-                    <ExportButton initialData={document}/>
-                </div>
+                {document ? (
+                    <div className="mr-4">
+                        <ExportButton initialData={document} />
+                    </div>
+                ) : (
+                    <div className="mr-4 text-sm text-muted-foreground">
+                        Загрузка документа...
+                    </div>
+                )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={onArchive}>
                     <Trash className="h-5 w-5 pl-1 mr-2"/>
