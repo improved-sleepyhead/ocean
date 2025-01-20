@@ -79,7 +79,7 @@ const ExportButton: React.FC<ExportProps> = ({ initialData }) => {
 
             const link = document.createElement("a");
             link.href = url;
-            link.download = "exported-document.pdf";
+            link.download = `${title || "untitled"}.pdf`;
             link.click();
             URL.revokeObjectURL(url);
 
