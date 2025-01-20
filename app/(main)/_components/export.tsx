@@ -66,7 +66,7 @@ const ExportButton: React.FC<ExportProps> = ({ initialData }) => {
                         style={{
                             fontFamily: "GeistMono",
                             textAlign: "center",
-                            fontSize: 5,
+                            fontSize: 8,
                         }}
                     >
                         Экспортировано из Ocean app
