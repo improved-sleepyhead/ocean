@@ -66,10 +66,10 @@ const ExportButton: React.FC<ExportProps> = ({ initialData }) => {
                         style={{
                             fontFamily: "GeistMono",
                             textAlign: "center",
-                            fontSize: 10,
+                            fontSize: 5,
                         }}
                     >
-                        Экспортировано с помощью BlockNote
+                        Экспортировано из Ocean app
                     </Text>
                 ),
             });

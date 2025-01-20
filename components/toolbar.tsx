@@ -176,7 +176,7 @@ export const ToolBar = ({
                             className="opacity-0 group-hover:opacity-100 flex items-center gap-x-1 py-4"
 
                             style={{
-                                transform: 'translateX(-240px)',
+                                transform: 'translateX(-180px)',
                             }}
                             >
                                 {!initialData.icon && !preview && (
