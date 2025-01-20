@@ -19,7 +19,13 @@ import {
           type: "extraBlock",
           propSchema: {},
         },
-        {}
+        {
+          render: () => {
+            const dom = document.createElement("div");
+            dom.textContent = "Custom Block Content"; // Можете заменить содержимое на своё
+            return { dom };
+          },
+        }
       ),
     },
     inlineContentSpecs: {
@@ -30,7 +36,13 @@ import {
           content: "styled",
           propSchema: {},
         },
-        {}
+        {
+          render: () => {
+            const dom = document.createElement("div");
+            dom.textContent = "Custom Block Content"; // Можете заменить содержимое на своё
+            return { dom };
+          },
+        }
       ),
     },
     styleSpecs: {
@@ -40,7 +52,13 @@ import {
           type: "extraStyle",
           propSchema: "boolean",
         },
-        {}
+        {
+          render: () => {
+            const dom = document.createElement("div");
+            dom.textContent = "Custom Block Content"; // Можете заменить содержимое на своё
+            return { dom };
+          },
+        }
       ),
     },
   });
