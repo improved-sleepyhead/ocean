@@ -4,30 +4,27 @@
 
 html,
 body,
-:root{
-  height: 100%
+:root {
+  height: 100%;
 }
 
-
-
-@font-face{
-  font-family:'Montserrat';
-  src: url('/ocean_project/public/assets/Montserrat-VariableFont_wght.ttf') format('truetype');
+@font-face {
+  font-family: "Montserrat";
+  src: url("/assets/Montserrat-VariableFont_wght.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @layer untilities {
-
-  .custom-heading {  
+  .custom-heading {
     line-height: 1.8;
   }
 
-  .grad{
+  .grad {
     @apply bg-gradient-to-r from-[#0059FF] to-[#00DDFF] inline-block text-transparent bg-clip-text;
   }
 
-  .grad_svg{
+  .grad_svg {
     @apply bg-gradient-to-r from-[#0059FF] to-[#00DDFF];
     @apply dark:bg-gradient-to-r from-[#640F00] to-[#BC0003];
   }
@@ -61,8 +58,6 @@ body,
     --chart-5: 27 87% 67%;
   }
 
-  
-  
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;

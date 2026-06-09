@@ -1,45 +1,41 @@
-"use client";
+"use client"
 
-import { Spinner } from "@/components/spinner";
-import { useConvexAuth } from "convex/react";
-import { redirect } from "next/navigation";
-import { useEffect } from "react";
-import { Navigation } from "./_components/navigation";
-import { SearchCommand } from "@/components/search-command";
+import { Spinner } from "@/components/spinner"
+import { useConvexAuth } from "convex/react"
+import { redirect } from "next/navigation"
+import { useEffect } from "react"
+import { Navigation } from "./_components/navigation"
+import { SearchCommand } from "@/components/search-command"
 
-const MainLayout = ({
-    children
-}: {
-    children: React.ReactNode;
-}) => {
-    const {isAuthenticated, isLoading} = useConvexAuth();
+const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated, isLoading } = useConvexAuth()
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            void import("@/components/editor");
-        }
-    }, [isAuthenticated]);
-
-    if (isLoading) {
-        return(
-            <div className="h-full flex items-center justify-center">
-                <Spinner size="lg"/>
-            </div>
-        );
+  useEffect(() => {
+    if (isAuthenticated) {
+      void import("@/components/editor")
     }
+  }, [isAuthenticated])
 
-    if (!isAuthenticated) {
-        return redirect("/");
-    }
+  if (isLoading) {
     return (
-        <div className="h-full flex dark:bg-[#1F1F1F] overflow-hidden relative">
-            <Navigation/>
-            <main className="flex-1 h-full overflow-y-auto">
-                <SearchCommand />
-                {children}
-            </main> 
-        </div>
-    );
+      <div className="h-full flex items-center justify-center">
+        <Spinner size="lg" />
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return redirect("/")
+  }
+  return (
+    <div className="h-full flex dark:bg-[#1F1F1F] overflow-hidden relative">
+      <Navigation />
+      <main className="flex-1 h-full overflow-y-auto">
+        <SearchCommand />
+        {children}
+      </main>
+    </div>
+  )
 }
- 
-export default MainLayout;
+
+export default MainLayout
