@@ -3,6 +3,7 @@
 import { Spinner } from "@/components/spinner";
 import { useConvexAuth } from "convex/react";
 import { redirect } from "next/navigation";
+import { useEffect } from "react";
 import { Navigation } from "./_components/navigation";
 import { SearchCommand } from "@/components/search-command";
 
@@ -12,6 +13,12 @@ const MainLayout = ({
     children: React.ReactNode;
 }) => {
     const {isAuthenticated, isLoading} = useConvexAuth();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            void import("@/components/editor");
+        }
+    }, [isAuthenticated]);
 
     if (isLoading) {
         return(

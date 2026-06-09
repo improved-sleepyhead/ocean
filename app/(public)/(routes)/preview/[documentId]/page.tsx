@@ -4,11 +4,10 @@ import { Cover } from "@/components/cover";
 import { ToolBar } from "@/components/toolbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
-import { useMutation, useQuery } from "convex/react";
+import type { Id } from "@/convex/_generated/dataModel";
+import { useQuery } from "convex/react";
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
-
+import { useEffect } from "react";
 
 interface DocumentIdPageProps {
     params: {
@@ -16,23 +15,26 @@ interface DocumentIdPageProps {
     };
 };
 
+const Editor = dynamic(() => import("@/components/editor"), {
+    ssr: false,
+    loading: () => <div className="px-[54px] py-4 text-sm text-muted-foreground">Загрузка редактора...</div>,
+});
+
+const preloadEditor = () => {
+    void import("@/components/editor");
+};
+
 const DocumentIdPage = ({
     params
 }: DocumentIdPageProps) => {
-    const Editor = useMemo(() => dynamic(() => import("@/components/editor"), {ssr: false}) ,[]);
+    useEffect(() => {
+        preloadEditor();
+    }, []);
 
     const document = useQuery(api.documents.getById, {
         documentId: params.documentId
     });
 
-    const update = useMutation(api.documents.update);
-
-    const onChange = (content: string) => {
-        update ({
-            id: params.documentId,
-            content
-        });
-    };
 
     if (document === undefined) {
         return (
@@ -60,7 +62,8 @@ const DocumentIdPage = ({
             <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
                 <ToolBar preview initialData={document}/>
                 <Editor
-                    onChange={onChange}
+                    key={params.documentId}
+                    onChange={() => undefined}
                     initialContent={document.content}
                     readOnly={true}
                 />

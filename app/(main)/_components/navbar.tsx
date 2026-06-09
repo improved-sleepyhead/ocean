@@ -1,7 +1,7 @@
 "use client";
 
 import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
+import type { Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import { MenuIcon } from "lucide-react";
 import { useParams } from "next/navigation";
@@ -10,7 +10,6 @@ import { Banner } from "./banner";
 import { Menu } from "./menu";
 import { useMediaQuery } from "usehooks-ts";
 import { Publish } from "./publish";
-import ExportButton from "./export";
 
 
 interface NavbarProps {

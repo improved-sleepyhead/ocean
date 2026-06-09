@@ -1,7 +1,6 @@
 import React from "react";
 import { Doc } from "@/convex/_generated/dataModel";
-import { PDFExporter } from "@blocknote/xl-pdf-exporter";
-import { Font, Text, View, Image } from "@react-pdf/renderer";
+import { Font, Text } from "@react-pdf/renderer";
 import ReactPDF from "@react-pdf/renderer";
 import { exporter } from "./exporter";
 import { toast } from "sonner";
@@ -20,7 +19,7 @@ Font.register({
 const ExportButton: React.FC<ExportProps> = ({ initialData }) => {
     const handleExportPDF = async () => {
         try {
-            const { content, title, coverImage, icon } = initialData;
+            const { content, title } = initialData;
 
             if (!content) {
                 throw new Error("Content is missing in the document.");

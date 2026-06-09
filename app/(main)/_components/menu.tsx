@@ -1,9 +1,10 @@
 "use client";
 
-import { Id } from "@/convex/_generated/dataModel";
+import type { Id } from "@/convex/_generated/dataModel";
 
 import { useUser } from "@clerk/clerk-react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
+import dynamic from "next/dynamic";
 import { useMutation, useQuery } from "convex/react";
 import { MoreHorizontal, Trash } from "lucide-react";
 import { toast } from "sonner";
@@ -18,12 +19,20 @@ import {
 import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useRef } from "react";
-import ExportButton from "./export";
+import { useRef, useState } from "react";
 
 interface MenuProps {
     documentId: Id<"documents">;
 }
+
+const ExportButton = dynamic(() => import("./export"), {
+    ssr: false,
+    loading: () => (
+        <div className="px-2 py-1 text-sm text-muted-foreground">
+            Загрузка экспорта...
+        </div>
+    ),
+});
 
 export const Menu = ({
     documentId
@@ -32,9 +41,9 @@ export const Menu = ({
     const document = useQuery(api.documents.getById, {
             documentId: params.documentId as Id<"documents">,
         });
-    const router = useRouter();
     const { user } = useUser();
     const triggerRef = useRef<HTMLButtonElement>(null);
+    const [isOpen, setIsOpen] = useState(false);
 
     const archive = useMutation(api.documents.archive);
 
@@ -49,6 +58,8 @@ export const Menu = ({
     };
 
     const handleOpenChange = (open: boolean) => {
+        setIsOpen(open);
+
         if (!open) {
             triggerRef.current?.blur(); // Убираем фокус с кнопки при закрытии
         }
@@ -69,9 +80,8 @@ export const Menu = ({
                 className="w-[180px] lg:w-[220px]"
                 align="end"
                 alignOffset={8}
-                forceMount
             >
-                {document ? (
+                {document && isOpen ? (
                     <div className="mr-4">
                         <ExportButton initialData={document} />
                     </div>
