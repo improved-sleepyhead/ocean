@@ -11,7 +11,6 @@ import {
 } from "lucide-react"
 import { useParams, usePathname, useRouter } from "next/navigation"
 import { ComponentRef, useCallback, useEffect, useRef, useState } from "react"
-import { useMediaQuery } from "usehooks-ts"
 import { UserItem } from "./user-item"
 import { useMutation } from "convex/react"
 
@@ -27,6 +26,7 @@ import {
 import { DocumentList } from "./document-list"
 import { Item } from "./item"
 import { TrashBox } from "./trash-box"
+import { useMediaQuery } from "@/hooks/use-media-query"
 import { useSearch } from "@/hooks/use-search"
 import { useSettings } from "@/hooks/use-settings"
 import { Navbar } from "./navbar"

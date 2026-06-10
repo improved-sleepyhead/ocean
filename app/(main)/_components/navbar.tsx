@@ -8,8 +8,8 @@ import { useParams } from "next/navigation"
 import { Title } from "./title"
 import { Banner } from "./banner"
 import { Menu } from "./menu"
-import { useMediaQuery } from "usehooks-ts"
 import { Publish } from "./publish"
+import { useMediaQuery } from "@/hooks/use-media-query"
 
 interface NavbarProps {
   isCollapsed: boolean
