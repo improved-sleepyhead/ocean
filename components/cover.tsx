@@ -17,6 +17,16 @@ interface CoverImageProps {
   preview?: boolean
 }
 
+const EDGE_STORE_HOSTNAME = "files.edgestore.dev"
+
+const isEdgeStoreUrl = (url: string) => {
+  try {
+    return new URL(url).hostname === EDGE_STORE_HOSTNAME
+  } catch {
+    return false
+  }
+}
+
 export const Cover = ({ url, preview }: CoverImageProps) => {
   const { edgestore } = useEdgeStore()
   const params = useParams()
@@ -43,7 +53,15 @@ export const Cover = ({ url, preview }: CoverImageProps) => {
       )}
     >
       {!!url && (
-        <Image src={url} fill alt="Изображение" className="object-cover" />
+        <Image
+          src={url}
+          fill
+          priority
+          unoptimized={isEdgeStoreUrl(url)}
+          sizes="100vw"
+          alt="Изображение"
+          className="object-cover"
+        />
       )}
       {url && !preview && (
         <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2">

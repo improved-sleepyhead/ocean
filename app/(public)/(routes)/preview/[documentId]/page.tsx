@@ -7,12 +7,12 @@ import { api } from "@/convex/_generated/api"
 import type { Id } from "@/convex/_generated/dataModel"
 import { useQuery } from "convex/react"
 import dynamic from "next/dynamic"
-import { useEffect } from "react"
+import { use, useEffect } from "react"
 
 interface DocumentIdPageProps {
-  params: {
+  params: Promise<{
     documentId: Id<"documents">
-  }
+  }>
 }
 
 const Editor = dynamic(() => import("@/components/editor"), {
@@ -29,12 +29,14 @@ const preloadEditor = () => {
 }
 
 const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
+  const { documentId } = use(params)
+
   useEffect(() => {
     preloadEditor()
   }, [])
 
   const document = useQuery(api.documents.getById, {
-    documentId: params.documentId
+    documentId
   })
 
   if (document === undefined) {
@@ -63,7 +65,7 @@ const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
         <ToolBar preview initialData={document} />
         <Editor
-          key={params.documentId}
+          key={documentId}
           onChange={() => undefined}
           initialContent={document.content}
           readOnly={true}

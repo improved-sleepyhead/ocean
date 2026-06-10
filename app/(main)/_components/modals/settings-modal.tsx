@@ -1,6 +1,12 @@
 "use client"
 
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle
+} from "@/components/ui/dialog"
 
 import { ModeToggle } from "@/components/mode-toggle"
 import { useSettings } from "@/hooks/use-settings"
@@ -12,14 +18,16 @@ export const SettingsModal = () => {
     <Dialog open={settings.isOpen} onOpenChange={settings.onClose}>
       <DialogContent>
         <DialogHeader className="border-b pb-3">
-          <h2 className="rext-lg font-medium">Мои настройки</h2>
+          <DialogTitle className="text-lg font-medium">
+            Мои настройки
+          </DialogTitle>
         </DialogHeader>
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-y-1">
             <label>Внешний вид</label>
-            <span className="text-[0.8rem] text-muted-foreground">
+            <DialogDescription className="text-[0.8rem]">
               Выбери, как будет выглядеть Ocean на твоём девайсе
-            </span>
+            </DialogDescription>
           </div>
           <ModeToggle />
         </div>

@@ -29,10 +29,11 @@ const DocumentsPage = () => {
   return (
     <div className="h-full flex flex-col items-center lg:mt-[150px] mt-[100px] space-y-5">
       <Image
-        src="/default.svg"
+        src="/default_light.png"
         height="300"
         width="300"
         alt="Empty"
+        priority
         className="dark:hidden"
       />
       <Image
@@ -40,6 +41,7 @@ const DocumentsPage = () => {
         height="300"
         width="300"
         alt="Empty"
+        priority
         className="hidden dark:block"
       />
       <h1 className="text-lg font-montserrat font-medium">

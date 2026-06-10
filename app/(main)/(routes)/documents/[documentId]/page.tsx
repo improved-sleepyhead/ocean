@@ -7,12 +7,12 @@ import { api } from "@/convex/_generated/api"
 import type { Id } from "@/convex/_generated/dataModel"
 import { useMutation, useQuery } from "convex/react"
 import dynamic from "next/dynamic"
-import { useCallback, useEffect } from "react"
+import { use, useCallback, useEffect } from "react"
 
 interface DocumentIdPageProps {
-  params: {
+  params: Promise<{
     documentId: Id<"documents">
-  }
+  }>
 }
 
 const Editor = dynamic(() => import("@/components/editor"), {
@@ -29,12 +29,14 @@ const preloadEditor = () => {
 }
 
 const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
+  const { documentId } = use(params)
+
   useEffect(() => {
     preloadEditor()
   }, [])
 
   const document = useQuery(api.documents.getById, {
-    documentId: params.documentId
+    documentId
   })
 
   const update = useMutation(api.documents.update)
@@ -42,11 +44,11 @@ const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
   const onChange = useCallback(
     (content: string) => {
       update({
-        id: params.documentId,
+        id: documentId,
         content
       })
     },
-    [params.documentId, update]
+    [documentId, update]
   )
 
   if (document === undefined) {
@@ -75,7 +77,7 @@ const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
         <ToolBar initialData={document} />
         <Editor
-          key={params.documentId}
+          key={documentId}
           onChange={onChange}
           initialContent={document.content}
           readOnly={false}

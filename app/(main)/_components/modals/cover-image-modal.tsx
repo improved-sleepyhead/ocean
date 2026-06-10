@@ -1,7 +1,13 @@
 "use client"
 
 import { SingleImageDropzone } from "@/components/single-image-dropzone"
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle
+} from "@/components/ui/dialog"
 import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
 import { useCoverImage } from "@/hooks/use-cover-image"
@@ -50,9 +56,12 @@ export const CoverImageModal = () => {
     <Dialog open={coverImage.isOpen} onOpenChange={coverImage.onClose}>
       <DialogContent>
         <DialogHeader>
-          <h2 className="text-center text-lg font-semibold">
+          <DialogTitle className="text-center text-lg font-semibold">
             Ваше изображение
-          </h2>
+          </DialogTitle>
+          <DialogDescription className="sr-only">
+            Загрузите изображение, чтобы использовать его как обложку документа.
+          </DialogDescription>
         </DialogHeader>
         <SingleImageDropzone
           className="w-full outline-none"

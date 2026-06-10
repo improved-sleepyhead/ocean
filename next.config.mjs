@@ -1,9 +1,25 @@
+const toConvexUrl = value => {
+  const trimmed = value?.trim()
+
+  if (!trimmed) {
+    return undefined
+  }
+
+  if (/^https?:\/\//.test(trimmed)) {
+    return trimmed.replace(/\/+$/, "")
+  }
+
+  const deployment = trimmed
+    .replace(/^[^:]+:/, "")
+    .replace(/\.convex\.cloud$/, "")
+
+  return deployment ? `https://${deployment}.convex.cloud` : undefined
+}
+
 /** @type {import('next').NextConfig} */
-const configuredConvexUrl = process.env.NEXT_PUBLIC_CONVEX_URL?.trim()
-const convexDeployment = process.env.CONVEX_DEPLOYMENT?.split(":").pop()?.trim()
 const convexUrl =
-  configuredConvexUrl ||
-  (convexDeployment ? `https://${convexDeployment}.convex.cloud` : undefined)
+  toConvexUrl(process.env.NEXT_PUBLIC_CONVEX_URL) ||
+  toConvexUrl(process.env.CONVEX_DEPLOYMENT)
 
 const nextConfig = {
   env: {
