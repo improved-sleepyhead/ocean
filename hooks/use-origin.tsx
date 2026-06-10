@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react"
+
+const subscribe = () => () => undefined
+const getClientSnapshot = () => true
+const getServerSnapshot = () => false
 
 export const useOrigin = () => {
-    const [mounted, setMounted] = useState(false);
-    const origin = typeof window !== "undefined" && window.location.origin ? window.location.origin : "";
+  const mounted = useSyncExternalStore(
+    subscribe,
+    getClientSnapshot,
+    getServerSnapshot
+  )
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+  if (!mounted) {
+    return ""
+  }
 
-    if (!mounted) {
-        return"";
-    }
-
-    return origin;
-};
+  return window.location.origin
+}

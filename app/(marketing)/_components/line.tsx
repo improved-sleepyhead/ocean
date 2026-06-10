@@ -37,12 +37,24 @@ export const Line = () => {
       >
         <defs>
           {/* Градиент для светлой темы */}
-          <linearGradient id="gradient-light-mobile" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient
+            id="gradient-light-mobile"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+          >
             <stop offset="0%" stopColor="#0059FF" />
             <stop offset="100%" stopColor="#00DDFF" />
           </linearGradient>
           {/* Градиент для тёмной темы */}
-          <linearGradient id="gradient-dark-mobile" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient
+            id="gradient-dark-mobile"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+          >
             <stop offset="0%" stopColor="#640F00" />
             <stop offset="100%" stopColor="#BC0003" />
           </linearGradient>
@@ -72,12 +84,24 @@ export const Line = () => {
       >
         <defs>
           {/* Градиент для светлой темы */}
-          <linearGradient id="gradient-light-medium" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient
+            id="gradient-light-medium"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+          >
             <stop offset="0%" stopColor="#0059FF" />
             <stop offset="100%" stopColor="#00DDFF" />
           </linearGradient>
           {/* Градиент для тёмной темы */}
-          <linearGradient id="gradient-dark-medium" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient
+            id="gradient-dark-medium"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+          >
             <stop offset="0%" stopColor="#640F00" />
             <stop offset="100%" stopColor="#BC0003" />
           </linearGradient>
@@ -97,8 +121,6 @@ export const Line = () => {
           className="dark:fill-[url(#gradient-dark-medium)]"
         />
       </svg>
-
-      
     </div>
-  );
-};
+  )
+}

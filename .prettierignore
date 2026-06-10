@@ -1,0 +1,15 @@
+.agents
+.codex
+.kiro
+.next
+AGENTS.md
+coverage
+docs
+dist
+node_modules
+next-env.d.ts
+pnpm-lock.yaml
+progress.md
+public/config.js
+public/mockServiceWorker.js
+tasks.json
